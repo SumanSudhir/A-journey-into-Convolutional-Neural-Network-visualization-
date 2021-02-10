@@ -91,7 +91,16 @@ def module2traced(module, inputs):
     def trace(module, inputs, outputs):
         modules.append(module)
 
-    def traverse(module):
+    # def traverse(module):
+    #     for m in module.children():
+    #         traverse(m)
+    #     is_leaf = len(list(module.children())) == 0
+    #     if is_leaf: handles.append(module.register_forward_hook(trace))
+
+   def traverse(module):
+        if isinstance(module, torch.nn.Conv2d):
+            handles.append(module.register_forward_hook(trace))
+            return
         for m in module.children():
             traverse(m)
         is_leaf = len(list(module.children())) == 0
