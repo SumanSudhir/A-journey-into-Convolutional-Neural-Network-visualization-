@@ -1,10 +1,12 @@
 import matplotlib.pyplot as plt
 import torch
+import cv2
 
 def tensor2img(tensor, ax=plt):
     tensor = tensor.squeeze()
     if len(tensor.shape) > 2: tensor = tensor.permute(1, 2, 0)
     img = tensor.detach().cpu().numpy()
+    img = cv2.cvtColor(np.float32(img), cv2.COLOR_RGB2BGR)
     return img
 
 def subplot(images, parse=lambda x: x, rows_titles=None, cols_titles=None, title='', *args, **kwargs):
@@ -115,4 +117,3 @@ def run_vis_plot_across_models(modules, input, layer_id, Vis, title,
             row.set_aspect('equal')
     fig.tight_layout()
     plt.subplots_adjust(wspace=0.1, hspace=0.2)
-
