@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import torch
 import cv2
+import numpy as np
 
 def tensor2img(tensor, ax=plt):
     tensor = tensor.squeeze()
